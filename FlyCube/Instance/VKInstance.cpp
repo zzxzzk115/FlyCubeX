@@ -6,6 +6,10 @@
 #include <sstream>
 #include <string>
 
+#if defined(_WIN32)
+#include <Windows.h>
+#endif
+
 #if VULKAN_HPP_DISPATCH_LOADER_DYNAMIC
 VULKAN_HPP_DEFAULT_DISPATCH_LOADER_DYNAMIC_STORAGE
 #endif

@@ -42,7 +42,6 @@ std::string GetMSLShader(const std::vector<uint8_t>& blob, std::map<std::string,
     options.set_msl_version(2, 3);
     options.argument_buffers = UseArgumentBuffers();
     options.force_active_argument_buffer_resources = options.argument_buffers;
-    options.argument_buffers_tier = spirv_cross::CompilerMSL::Options::ArgumentBuffersTier::Tier2;
     compiler.set_msl_options(options);
     auto msl_source = compiler.compile();
     mapping = ParseBindings(compiler);
