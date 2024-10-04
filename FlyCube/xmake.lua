@@ -1,4 +1,12 @@
-add_requires("vulkan-hpp", "directx-headers", "directxshadercompiler", "gli", "glm", "spirv-cross", "nowide_standalone")
+if is_plat("windows") then 
+    add_requires("directx-headers", "directxshadercompiler")
+end
+
+if has_config("vulkan_support") then 
+    add_requires("vulkan-hpp")
+end
+
+add_requires("gli", "glm", "spirv-cross", "nowide_standalone")
 
 target("FlyCubeX-static")
     set_kind("static")
@@ -96,6 +104,8 @@ target("FlyCubeX-static")
             "Swapchain/DXSwapchain.cpp"
         )
         add_links("d3d12", "dxgi", "dxguid")
+        add_packages("directx-headers", { public = true})
+        add_packages("directxshadercompiler", { public = true})
         add_defines("DIRECTX_SUPPORT", "NOMINMAX")
     end
 
@@ -179,8 +189,8 @@ target("FlyCubeX-static")
             "ShaderReflection/SPIRVReflection.cpp",
             "Swapchain/VKSwapchain.cpp"
         )
+        add_packages("vulkan-hpp", { public = true})
         add_defines("VULKAN_SUPPORT")
-        add_packages("vulkan-hpp")
     end
 
     -- Linux links
@@ -188,8 +198,6 @@ target("FlyCubeX-static")
         add_links("dl", "X11-xcb")
     end
 
-    add_packages("directx-headers", { public = true})
-    add_packages("directxshadercompiler", { public = true})
     add_packages("gli", { public = true})
     add_packages("glm", { public = true})
     add_packages("spirv-cross", { public = true})
