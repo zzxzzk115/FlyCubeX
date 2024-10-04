@@ -8,9 +8,6 @@
 #include <dxc/DxilContainer/DxilRuntimeReflection.inl>
 #include <nowide/convert.hpp>
 
-#include <algorithm>
-#include <set>
-
 namespace {
 
 ShaderKind ConvertShaderKind(hlsl::DXIL::ShaderKind kind)

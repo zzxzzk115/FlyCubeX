@@ -5,7 +5,6 @@
 #include "Pipeline/DXStateBuilder.h"
 #include "Program/ProgramBase.h"
 #include "Shader/Shader.h"
-#include "Utilities/DXGIFormatHelper.h"
 #include "View/DXView.h"
 
 #include <directx/d3dx12.h>
@@ -29,6 +28,16 @@ DXComputePipeline::DXComputePipeline(DXDevice& device, const ComputePipelineDesc
             compute_state_builder.AddState<CD3DX12_PIPELINE_STATE_STREAM_CS>(ShaderBytecode);
             break;
         }
+
+        // do nothing:
+        case ShaderType::kUnknown:
+        case ShaderType::kVertex:
+        case ShaderType::kPixel:
+        case ShaderType::kGeometry:
+        case ShaderType::kAmplification:
+        case ShaderType::kMesh:
+        case ShaderType::kLibrary:
+            break;
         }
     }
     compute_state_builder.AddState<CD3DX12_PIPELINE_STATE_STREAM_ROOT_SIGNATURE>(m_root_signature.Get());

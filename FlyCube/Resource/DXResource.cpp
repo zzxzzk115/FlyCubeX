@@ -3,7 +3,6 @@
 #include "Device/DXDevice.h"
 #include "Memory/DXMemory.h"
 #include "Utilities/DXGIFormatHelper.h"
-#include "Utilities/SystemUtils.h"
 
 #include <directx/d3dx12.h>
 #include <nowide/convert.hpp>

@@ -224,6 +224,12 @@ DXGraphicsPipeline::DXGraphicsPipeline(DXDevice& device, const GraphicsPipelineD
             graphics_state_builder.AddState<CD3DX12_PIPELINE_STATE_STREAM_PS>(ShaderBytecode);
             graphics_state_builder.AddState<CD3DX12_PIPELINE_STATE_STREAM_RENDER_TARGET_FORMATS>(GetRTVFormats(desc));
             break;
+
+        // do nothing
+        case ShaderType::kUnknown:
+        case ShaderType::kCompute:
+        case ShaderType::kLibrary:
+            break;
         }
     }
 

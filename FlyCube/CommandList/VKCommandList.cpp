@@ -10,7 +10,6 @@
 #include "Pipeline/VKRayTracingPipeline.h"
 #include "QueryHeap/VKQueryHeap.h"
 #include "Resource/VKResource.h"
-#include "Utilities/VKUtility.h"
 #include "View/VKView.h"
 
 #if defined(_WIN32)
