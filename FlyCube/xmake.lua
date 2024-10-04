@@ -1,4 +1,4 @@
-add_requires("directx-headers", "directxshadercompiler", "gli", "glm", "spirv-cross", "nowide_standalone")
+add_requires("vulkan-hpp", "directx-headers", "directxshadercompiler", "gli", "glm", "spirv-cross", "nowide_standalone")
 
 target("FlyCubeX-static")
     set_kind("static")
@@ -55,7 +55,7 @@ target("FlyCubeX-static")
     end
 
     -- DirectX support
-    if has_config("directx_support") then
+    if is_plat("windows") then
         add_headerfiles(
             "Adapter/DXAdapter.h",
             "BindingSet/DXBindingSet.h",
@@ -96,10 +96,11 @@ target("FlyCubeX-static")
             "Swapchain/DXSwapchain.cpp"
         )
         add_links("d3d12", "dxgi", "dxguid")
+        add_defines("DIRECTX_SUPPORT", "NOMINMAX")
     end
 
     -- Metal support
-    if has_config("metal_support") then
+    if is_plat("macosx") then
         add_headerfiles(
             "Adapter/MTAdapter.h",
             "BindingSet/MTBindingSet.h",
@@ -137,6 +138,7 @@ target("FlyCubeX-static")
             "Swapchain/MTSwapchain.mm"
         )
         add_frameworks("Foundation", "QuartzCore", "Metal")
+        add_defines("METAL_SUPPORT")
     end
 
     -- Vulkan support
@@ -177,7 +179,8 @@ target("FlyCubeX-static")
             "ShaderReflection/SPIRVReflection.cpp",
             "Swapchain/VKSwapchain.cpp"
         )
-        add_links("vulkan")
+        add_defines("VULKAN_SUPPORT")
+        add_packages("vulkan-hpp")
     end
 
     -- Linux links

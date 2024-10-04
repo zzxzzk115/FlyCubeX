@@ -478,7 +478,7 @@ void DXCommandList::SetViewport(float x, float y, float width, float height)
 
 void DXCommandList::SetScissorRect(int32_t left, int32_t top, uint32_t right, uint32_t bottom)
 {
-    D3D12_RECT rect = { left, top, right, bottom };
+    D3D12_RECT rect = { left, top, static_cast<LONG>(right), static_cast<LONG>(bottom) };
     m_command_list->RSSetScissorRects(1, &rect);
 }
 
@@ -720,14 +720,16 @@ void DXCommandList::ResolveQueryData(const std::shared_ptr<QueryHeap>& query_hea
 
     decltype(auto) dx_query_heap = query_heap->As<DXRayTracingQueryHeap>();
     decltype(auto) dx_dst_buffer = dst_buffer->As<DXResource>();
-    m_command_list->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(dx_query_heap.GetResource().Get(),
-                                                                             D3D12_RESOURCE_STATE_UNORDERED_ACCESS,
-                                                                             D3D12_RESOURCE_STATE_COPY_SOURCE, 0));
+    auto barrier1 = CD3DX12_RESOURCE_BARRIER::Transition(
+        dx_query_heap.GetResource().Get(), D3D12_RESOURCE_STATE_UNORDERED_ACCESS, D3D12_RESOURCE_STATE_COPY_SOURCE, 0);
+    m_command_list->ResourceBarrier(1, &barrier1);
+
     m_command_list->CopyBufferRegion(dx_dst_buffer.resource.Get(), dst_offset, dx_query_heap.GetResource().Get(),
                                      first_query * sizeof(uint64_t), query_count * sizeof(uint64_t));
-    m_command_list->ResourceBarrier(
-        1, &CD3DX12_RESOURCE_BARRIER::Transition(dx_query_heap.GetResource().Get(), D3D12_RESOURCE_STATE_COPY_SOURCE,
-                                                 D3D12_RESOURCE_STATE_UNORDERED_ACCESS, 0));
+
+    auto barrier2 = CD3DX12_RESOURCE_BARRIER::Transition(
+        dx_query_heap.GetResource().Get(), D3D12_RESOURCE_STATE_COPY_SOURCE, D3D12_RESOURCE_STATE_UNORDERED_ACCESS, 0);
+    m_command_list->ResourceBarrier(1, &barrier2);
 }
 
 ComPtr<ID3D12GraphicsCommandList> DXCommandList::GetCommandList()

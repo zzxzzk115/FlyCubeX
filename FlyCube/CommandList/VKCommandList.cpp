@@ -13,6 +13,10 @@
 #include "Utilities/VKUtility.h"
 #include "View/VKView.h"
 
+#if defined(_WIN32)
+#undef MemoryBarrier
+#endif
+
 namespace {
 
 vk::StridedDeviceAddressRegionKHR GetStridedDeviceAddressRegion(VKDevice& device, const RayTracingShaderTable& table)

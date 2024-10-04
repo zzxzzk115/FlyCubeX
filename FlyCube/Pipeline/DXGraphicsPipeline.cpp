@@ -236,7 +236,8 @@ DXGraphicsPipeline::DXGraphicsPipeline(DXDevice& device, const GraphicsPipelineD
 
     ComPtr<ID3D12Device2> device2;
     m_device.GetDevice().As(&device2);
-    ASSERT_SUCCEEDED(device2->CreatePipelineState(&graphics_state_builder.GetDesc(), IID_PPV_ARGS(&m_pipeline_state)));
+    auto desc1 = graphics_state_builder.GetDesc();
+    ASSERT_SUCCEEDED(device2->CreatePipelineState(&desc1, IID_PPV_ARGS(&m_pipeline_state)));
 }
 
 void DXGraphicsPipeline::ParseInputLayout(const std::shared_ptr<Shader>& shader)

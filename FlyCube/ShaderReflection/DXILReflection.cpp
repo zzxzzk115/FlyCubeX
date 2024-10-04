@@ -411,8 +411,8 @@ DXILReflection::DXILReflection(const void* data, size_t size)
         } else if (kind == hlsl::DxilFourCC::DFCC_FeatureInfo) {
             CComPtr<IDxcBlob> part;
             ASSERT_SUCCEEDED(reflection->GetPartContent(i, &part));
-            assert(part->GetBufferSize() == sizeof(DxilShaderFeatureInfo));
-            auto feature_info = reinterpret_cast<DxilShaderFeatureInfo const*>(part->GetBufferPointer());
+            assert(part->GetBufferSize() == sizeof(hlsl::DxilShaderFeatureInfo));
+            auto feature_info = reinterpret_cast<hlsl::DxilShaderFeatureInfo const*>(part->GetBufferPointer());
             if (feature_info->FeatureFlags & hlsl::DXIL::ShaderFeatureInfo_ResourceDescriptorHeapIndexing) {
                 m_shader_feature_info.resource_descriptor_heap_indexing = true;
             }

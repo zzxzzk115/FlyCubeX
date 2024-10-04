@@ -7,6 +7,11 @@ set_version("1.0.0")
 -- set language version: C++ 20
 set_languages("cxx20")
 
+-- global options
+option("vulkan_support")
+    set_default(true)
+option_end()
+
 -- if build on windows
 if is_plat("windows") then
     if is_mode("debug") then
