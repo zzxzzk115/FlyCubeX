@@ -4,10 +4,10 @@ target("CoreDxrTriangle")
     set_kind("binary")
 
     -- set values
-    set_values("asset_files", "assets/shaders/**")
+    set_values("asset_files", "assets/shaders/CoreDxrTriangle/**")
 
     -- add rules
-    add_rules("copy_assets")
+    add_rules("copy_assets", "copy_dxc_libs")
 
     -- add source file
     add_files("main.cpp")

@@ -55,6 +55,12 @@ rule("copy_assets")
     end)
 rule_end()
 
+rule("copy_dxc_libs")
+    after_build(function (target)
+        os.cp("tools/$(plat)/$(arch)/dxc/dx*.dll", target:targetdir())
+    end)
+rule_end()
+
 add_rules("mode.debug", "mode.release")
 add_rules("plugin.vsxmake.autoupdate")
 add_rules("plugin.compile_commands.autoupdate", {outputdir = ".vscode"})
