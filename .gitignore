@@ -17,3 +17,6 @@ out/
 # CLion
 .idea/
 cmake-build-*/
+
+# Install
+output/

@@ -73,7 +73,6 @@ target("FlyCubeX-static")
         add_files("**/DX*.cpp", "ShaderReflection/SPIRVReflection.cpp")
         add_links("d3d12", "dxgi", "dxguid")
         add_packages("directx-headers", "directxshadercompiler", { public = true })
-        add_defines("DIRECTX_SUPPORT", "NOMINMAX")
     end
 
     -- Metal support
@@ -81,7 +80,6 @@ target("FlyCubeX-static")
         add_headerfiles("**/MT*.h")
         add_files("**/MT*.mm")
         add_frameworks("Foundation", "QuartzCore", "Metal")
-        add_defines("METAL_SUPPORT")
     end
 
     -- Vulkan support
@@ -89,7 +87,6 @@ target("FlyCubeX-static")
         add_headerfiles("**/VK*.h")
         add_files("**/VK*.cpp", "ShaderReflection/SPIRVReflection.cpp")
         add_packages("vulkan-hpp", "vulkansdk", { public = true })
-        add_defines("VULKAN_SUPPORT")
     end
 
     -- Linux links
