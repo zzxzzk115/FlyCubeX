@@ -11,6 +11,10 @@ add_requires("gli", "glm", "spirv-cross", "nowide_standalone")
 target("FlyCubeX-lib")
     set_kind("$(kind)")
 
+    if is_kind("shared") then
+        add_rules("utils.symbols.export_all")
+    end
+
     add_includedirs(".", "$(projectdir)/external/dxc/include", { public = true })
     add_headerfiles("$(projectdir)/(FlyCube/**.h)")
 
