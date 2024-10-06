@@ -13,4 +13,4 @@ target("CoreTriangle")
     add_files("main.cpp")
 
     -- add dependencies
-    add_deps("AppBox", "FlyCubeX-static")
+    add_deps("AppBox", "FlyCubeX-lib")

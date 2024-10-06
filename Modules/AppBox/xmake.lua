@@ -16,5 +16,5 @@ target("AppBox")
         add_files("AutoreleasePool.mm")
     end
 
-    add_deps("FlyCubeX-static", "AppSettings")
+    add_deps("FlyCubeX-lib", "AppSettings")
     add_packages("glfw", { public = true })

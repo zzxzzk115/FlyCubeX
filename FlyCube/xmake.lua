@@ -8,8 +8,8 @@ end
 
 add_requires("gli", "glm", "spirv-cross", "nowide_standalone")
 
-target("FlyCubeX-static")
-    set_kind("static")
+target("FlyCubeX-lib")
+    set_kind("$(kind)")
 
     add_includedirs(".", "$(projectdir)/external/dxc/include", { public = true })
     add_headerfiles("$(projectdir)/(FlyCube/**.h)")
@@ -39,7 +39,6 @@ target("FlyCubeX-static")
     -- DirectX support
     if is_plat("windows") then
         add_files("**/DX*.cpp", "ShaderReflection/SPIRVReflection.cpp")
-        add_links("d3d12", "dxgi", "dxguid")
         add_packages("directx-headers", "directxshadercompiler", { public = true })
     end
 
@@ -53,11 +52,6 @@ target("FlyCubeX-static")
     if has_config("vulkan_support") then
         add_files("**/VK*.cpp", "ShaderReflection/SPIRVReflection.cpp")
         add_packages("vulkan-hpp", "vulkansdk", { public = true })
-    end
-
-    -- Linux links
-    if is_plat("linux") then
-        add_links("dl", "X11-xcb")
     end
 
     add_packages("gli", "glm", "spirv-cross", "nowide_standalone", { public = true })

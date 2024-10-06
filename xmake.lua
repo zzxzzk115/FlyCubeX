@@ -25,7 +25,12 @@ if is_plat("windows") then
         set_runtimes("MD")
     end
     -- DX support
+    add_links("d3d12", "dxgi", "dxguid")
     add_defines("DIRECTX_SUPPORT", "NOMINMAX")
+end
+-- Linux links
+if is_plat("linux") then
+    add_links("dl", "X11-xcb")
 end
 -- Metal support
 if is_plat("macosx") then
