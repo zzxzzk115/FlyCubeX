@@ -1,6 +1,6 @@
-#include "HLSLCompiler/MSLConverter.h"
+#include "ShaderCompiler/MSLConverter.h"
 
-#include "HLSLCompiler/Compiler.h"
+#include "ShaderCompiler/Compiler.h"
 
 #include <spirv_cross/spirv_msl.hpp>
 

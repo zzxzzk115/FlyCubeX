@@ -97,6 +97,12 @@ enum class ShaderBlobType {
     kSPIRV,
 };
 
+enum class ShaderSourceType {
+    kHLSL,
+    kGLSL,
+    kUnknown,
+};
+
 enum class ResourceType {
     kUnknown,
     kBuffer,
@@ -629,8 +635,8 @@ constexpr uint64_t kAccelerationStructureAlignment = 256;
 enum class QueryHeapType { kAccelerationStructureCompactedSize };
 
 template <typename T>
-auto operator<(const T& l, const T& r)
-    -> std::enable_if_t<std::is_same_v<decltype(l.MakeTie() < r.MakeTie()), bool>, bool>
+auto operator<(const T& l,
+               const T& r) -> std::enable_if_t<std::is_same_v<decltype(l.MakeTie() < r.MakeTie()), bool>, bool>
 {
     return l.MakeTie() < r.MakeTie();
 }

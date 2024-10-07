@@ -1,4 +1,4 @@
-#include "HLSLCompiler/Compiler.h"
+#include "ShaderCompiler/Compiler.h"
 #include "ShaderReflection/ShaderReflection.h"
 
 #include <catch2/catch_all.hpp>

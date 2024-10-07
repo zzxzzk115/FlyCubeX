@@ -1,7 +1,7 @@
 #include "Shader/ShaderBase.h"
 
-#include "HLSLCompiler/Compiler.h"
-#include "HLSLCompiler/MSLConverter.h"
+#include "ShaderCompiler/Compiler.h"
+#include "ShaderCompiler/MSLConverter.h"
 
 namespace {
 

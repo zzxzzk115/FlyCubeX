@@ -1,5 +1,5 @@
 #pragma once
-#include "HLSLCompiler/DXCLoader.h"
+#include "ShaderCompiler/DXCLoader.h"
 #include "ShaderReflection/ShaderReflection.h"
 
 #if !defined(_WIN32)

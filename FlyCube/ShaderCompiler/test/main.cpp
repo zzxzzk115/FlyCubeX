@@ -1,5 +1,5 @@
-#include "HLSLCompiler/Compiler.h"
-#include "HLSLCompiler/MSLConverter.h"
+#include "ShaderCompiler/Compiler.h"
+#include "ShaderCompiler/MSLConverter.h"
 
 #include <catch2/catch_all.hpp>
 

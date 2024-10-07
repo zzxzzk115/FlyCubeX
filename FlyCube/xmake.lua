@@ -6,7 +6,7 @@ if has_config("vulkan_support") then
     add_requires("vulkan-hpp", "vulkansdk")
 end
 
-add_requires("gli", "glm", "spirv-cross", "nowide_standalone")
+add_requires("gli", "glm", "shaderc", "spirv-cross", "nowide_standalone")
 
 target("FlyCubeX-lib")
     set_kind("$(kind)")
@@ -20,9 +20,9 @@ target("FlyCubeX-lib")
 
     add_files(
         "Framebuffer/FramebufferBase.cpp",
-        "HLSLCompiler/Compiler.cpp",
-        "HLSLCompiler/DXCLoader.cpp",
-        "HLSLCompiler/MSLConverter.cpp",
+        "ShaderCompiler/Compiler.cpp",
+        "ShaderCompiler/DXCLoader.cpp",
+        "ShaderCompiler/MSLConverter.cpp",
         "Instance/Instance.cpp",
         "Program/ProgramBase.cpp",
         "Resource/ResourceBase.cpp",
@@ -58,4 +58,4 @@ target("FlyCubeX-lib")
         add_packages("vulkan-hpp", "vulkansdk", { public = true })
     end
 
-    add_packages("gli", "glm", "spirv-cross", "nowide_standalone", { public = true })
+    add_packages("gli", "glm", "shaderc", "spirv-cross", "nowide_standalone", { public = true })

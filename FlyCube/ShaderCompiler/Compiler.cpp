@@ -1,6 +1,6 @@
-#include "HLSLCompiler/Compiler.h"
+#include "ShaderCompiler/Compiler.h"
 
-#include "HLSLCompiler/DXCLoader.h"
+#include "ShaderCompiler/DXCLoader.h"
 #include "Utilities/DXUtility.h"
 #include "Utilities/SystemUtils.h"
 
@@ -8,6 +8,7 @@
 
 #include <cassert>
 #include <deque>
+#include <filesystem>
 #include <iostream>
 #include <vector>
 
@@ -33,6 +34,17 @@ std::string GetShaderTarget(ShaderType type, const std::string& model)
     default:
         assert(false);
         return "";
+    }
+}
+
+ShaderSourceType GetShaderSourceType(const std::string& suffix)
+{
+    if (suffix == ".hlsl") {
+        return ShaderSourceType::kHLSL;
+    } else if (suffix == ".glsl") {
+        return ShaderSourceType::kGLSL;
+    } else {
+        return ShaderSourceType::kUnknown;
     }
 }
 
@@ -82,6 +94,28 @@ std::vector<uint8_t> Compile(const ShaderDesc& shader, ShaderBlobType blob_type)
 
     std::wstring shader_path = nowide::widen(shader.shader_path);
     std::wstring shader_dir = shader_path.substr(0, shader_path.find_last_of(L"\\/") + 1);
+
+    auto suffix = std::filesystem::path(shader.shader_path).extension().generic_string();
+    auto shaderSourceType = GetShaderSourceType(suffix);
+
+    if (blob_type == ShaderBlobType::kDXIL) { // DXIL
+        // GLSL Source -> SPV -> HLSL Source (shaderc + SPIRV-Cross)
+        if (shaderSourceType == ShaderSourceType::kGLSL) {
+            shaderSourceType = ShaderSourceType::kHLSL;
+        }
+
+        // HLSL Source -> DXIL (DXC)
+        if (shaderSourceType == ShaderSourceType::kHLSL) {
+        }
+    } else if (blob_type == ShaderBlobType::kSPIRV) { // SPV
+        // GLSL Source -> SPV (shaderc)
+        if (shaderSourceType == ShaderSourceType::kGLSL) {
+        }
+
+        // HLSL Source -> SPV (DirectXShaderCompiler)
+        if (shaderSourceType == ShaderSourceType::kHLSL) {
+        }
+    }
 
     CComPtr<IDxcLibrary> library;
     dxc_support.CreateInstance(CLSID_DxcLibrary, &library);

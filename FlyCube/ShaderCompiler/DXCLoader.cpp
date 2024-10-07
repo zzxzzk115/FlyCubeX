@@ -1,4 +1,4 @@
-#include "HLSLCompiler/DXCLoader.h"
+#include "ShaderCompiler/DXCLoader.h"
 
 #include "Utilities/ScopeGuard.h"
 #include "Utilities/SystemUtils.h"
