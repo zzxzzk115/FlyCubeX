@@ -20,17 +20,17 @@ option_end()
 if is_plat("windows") then
     if is_mode("debug") then
         set_runtimes("MDd")
-        add_links("ucrtd")
+        add_syslinks("ucrtd")
     else
         set_runtimes("MD")
     end
     -- DX support
-    add_links("d3d12", "dxgi", "dxguid")
+    add_syslinks("d3d12", "dxgi", "dxguid")
     add_defines("DIRECTX_SUPPORT", "NOMINMAX")
 end
 -- Linux links
 if is_plat("linux") then
-    add_links("dl", "X11-xcb")
+    add_syslinks("dl", "X11-xcb")
 end
 -- Metal support
 if is_plat("macosx") then
