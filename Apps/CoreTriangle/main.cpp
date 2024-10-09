@@ -2,12 +2,12 @@
 #include "AppSettings/ArgsParser.h"
 #include "Instance/Instance.h"
 
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
+
 
 int main(int argc, char* argv[])
-try
-{
+try {
     Settings settings = ParseArgs(argc, argv);
     AppBox app("CoreTriangle", settings);
     AppSize app_size = app.GetAppSize();
@@ -45,10 +45,10 @@ try
     constant_buffer->CommitMemory(MemoryType::kUpload);
     constant_buffer->UpdateUploadBuffer(0, &constant_data, sizeof(constant_data));
 
-    std::shared_ptr<Shader> vertex_shader = device->CompileShader(
-        { "assets/shaders/CoreTriangle/VertexShader.hlsl", "main", ShaderType::kVertex, "6_0" });
-    std::shared_ptr<Shader> pixel_shader = device->CompileShader(
-        { "assets/shaders/CoreTriangle/PixelShader.hlsl", "main", ShaderType::kPixel, "6_0" });
+    std::shared_ptr<Shader> vertex_shader =
+        device->CompileShader({ "assets/shaders/CoreTriangle/VertexShader.glsl", "main", ShaderType::kVertex, "6_0" });
+    std::shared_ptr<Shader> pixel_shader =
+        device->CompileShader({ "assets/shaders/CoreTriangle/PixelShader.glsl", "main", ShaderType::kPixel, "6_0" });
     std::shared_ptr<Program> program = device->CreateProgram({ vertex_shader, pixel_shader });
 
     ViewDesc constant_view_desc = {};
@@ -116,8 +116,6 @@ try
     command_queue->Signal(fence, ++fence_value);
     fence->Wait(fence_value);
     return 0;
-}
-catch (const std::exception& e)
-{
+} catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
 }

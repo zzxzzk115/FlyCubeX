@@ -31,6 +31,20 @@ std::vector<uint8_t> ReadBinaryFile(const std::string& filepath)
     return data;
 }
 
+std::string ReadFileContent(const std::string& filepath)
+{
+    std::ifstream in(filepath);
+
+    if (in.bad()) {
+        throw std::exception("Failed to read file content");
+    }
+
+    std::stringstream ss;
+    ss << in.rdbuf();
+
+    return static_cast<std::string>(ss.str());
+}
+
 std::string GetAssertPath(const std::string& filepath)
 {
 #if defined(__APPLE__)
